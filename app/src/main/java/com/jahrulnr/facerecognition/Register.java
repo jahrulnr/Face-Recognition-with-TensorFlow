@@ -2,12 +2,8 @@ package com.jahrulnr.facerecognition;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
-import android.view.TextureView;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -15,10 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.CameraSelector;
-import androidx.camera.core.CameraX;
 import androidx.camera.core.ImageAnalysis;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
@@ -37,7 +31,6 @@ import com.jahrulnr.facerecognition.inc.ThreadException;
 import com.jahrulnr.facerecognition.inc.getPermission;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
 public class Register  extends AppCompatActivity {
     getPermission perms;
@@ -114,7 +107,7 @@ public class Register  extends AppCompatActivity {
                         Toast.makeText(Register.this, "Username sudah ada.", Toast.LENGTH_SHORT).show();
                         return;
                     }else{
-                        analyzer.insertToServerSP(username.getText().toString()).addOnSuccessListener(command -> {
+                        analyzer.insertToSP(username.getText().toString()).addOnSuccessListener(command -> {
                             Toast.makeText(Register.this, "Akun berhasil dibuat. Silakan login.", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(Register.this, MainActivity.class));
                             overridePendingTransition(0, 0);

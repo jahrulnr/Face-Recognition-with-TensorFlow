@@ -187,7 +187,7 @@ public class Recognition{
 
     private void initDrawingUtils() {
         if(fbImage == null) return;
-        bitmap = Bitmap.createBitmap(200, 200, Bitmap.Config.ARGB_8888);
+        bitmap = Bitmap.createBitmap(tv.getWidth(), tv.getHeight(), Bitmap.Config.ARGB_8888);
         canvas = new Canvas(bitmap);
         dotPaint = new Paint();
         dotPaint.setColor(Color.RED);
@@ -220,21 +220,36 @@ public class Recognition{
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength);
     }
 
-    public Task<Void> insertToServerSP(String user) {
+    public Task<Void> insertToSP(String user) {
         start=false;
         SimilarityClassifier result = new SimilarityClassifier(
                 "0", "", -1f, embeedings);
         registered.put(user, result);
+
+        // save to local
         String jsonString = new Gson().toJson(registered);
         SharedPreferences sharedPreferences = activity.getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("map", jsonString);
         editor.apply();
         start=true;
+
+        // save to firebase
         return firebase.save(firebase.user + "/" + user, registered.get(user));
     }
 
     //Load Faces from Shared Preferences.Json String to Recognition object
+    private HashMap<String, SimilarityClassifier> readFromLocalSP(){
+        HashMap<String, SimilarityClassifier> retrievedMap = new HashMap<String, SimilarityClassifier>();
+        SharedPreferences sharedPreferences = activity.getSharedPreferences("user", MODE_PRIVATE);
+        String defValue = new Gson().toJson(new HashMap<String, SimilarityClassifier>());
+        String json=sharedPreferences.getString("map",defValue);
+        TypeToken<HashMap<String, SimilarityClassifier>> token = new TypeToken<HashMap<String, SimilarityClassifier>>() {};
+        retrievedMap = new Gson().fromJson(json,token.getType());
+        return retrievedMap;
+    }
+
+    //Load Faces from Firebase to Recognition object
     private HashMap<String, SimilarityClassifier> readFromServerSP(){
         HashMap<String, SimilarityClassifier> retrievedMap = new HashMap<String, SimilarityClassifier>();
         firebase.read(firebase.user).addValueEventListener(new ValueEventListener() {
@@ -254,24 +269,6 @@ public class Recognition{
             }
         });
 
-        // offline data saving
-//        SharedPreferences sharedPreferences = activity.getSharedPreferences("user", MODE_PRIVATE);
-//        String defValue = new Gson().toJson(new HashMap<String, SimilarityClassifier>());
-//        String json=sharedPreferences.getString("map",defValue);
-//        TypeToken<HashMap<String, SimilarityClassifier>> token = new TypeToken<HashMap<String, SimilarityClassifier>>() {};
-//        retrievedMap = new Gson().fromJson(json,token.getType());
-//        for (Map.Entry<String, SimilarityClassifier> entry: retrievedMap.entrySet())
-//        {
-//            System.out.println("Entry output "+entry.getKey()+" "+entry.getValue().getExtra() );
-//            float[][] output=new float[1][OUTPUT_SIZE];
-//            ArrayList arrayList= (ArrayList) entry.getValue().getObjectExtra();
-//            arrayList = (ArrayList) arrayList.get(0);
-//            for (int counter = 0; counter < arrayList.size(); counter++) {
-//                output[0][counter]= ((Double) arrayList.get(counter)).floatValue();
-//            }
-//            entry.getValue().setObjectExtra(output);
-//            System.out.println("Entry output "+entry.getKey()+" "+entry.getValue().getExtra() );
-//        }
         if(developerMode)
             Toast.makeText(activity, "Recognitions Loaded", Toast.LENGTH_SHORT).show();
         return retrievedMap;
