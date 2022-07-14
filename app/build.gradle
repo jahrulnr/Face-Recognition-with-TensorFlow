@@ -45,6 +45,9 @@ dependencies {
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'com.google.code.gson:gson:2.9.0'
 
+    // for splash screen
+    implementation "com.airbnb.android:lottie:5.0.3"
+
     // for mlkit
     implementation 'com.google.mlkit:face-detection:16.1.5'
 
@@ -52,7 +55,6 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite:2.9.0'
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.8.0'
     implementation 'org.tensorflow:tensorflow-lite-support:0.4.1'
-
 
     // for camerax
     def camerax_version = '1.2.0-alpha03'

@@ -66,6 +66,10 @@ public class Register  extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        if (!perms.check()) {
+            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
+        }
+
         perms = new getPermission(this);
         faceContainer = findViewById(R.id.faceContainer);
         tv_face = findViewById(R.id.face_tv_face);
@@ -73,18 +77,8 @@ public class Register  extends AppCompatActivity {
         iv_dev = findViewById(R.id.face_iv_dev);
         username = findViewById(R.id.ev_username);
 
-        if (!perms.check()) {
-            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
-        }
-
-        if(perms.check()){
-            tv_face.post(this::initCamera);
-            setButton();
-        }else{
-            Toast.makeText(this,
-                    "Permissions not granted by the user.",
-                    Toast.LENGTH_SHORT).show();
-        }
+        setButton();
+        tv_face.post(this::initCamera);
     }
 
     void setButton(){
@@ -125,9 +119,7 @@ public class Register  extends AppCompatActivity {
                             startActivity(new Intent(Register.this, MainActivity.class));
                             overridePendingTransition(0, 0);
                             finish();
-                        }).addOnFailureListener(command -> {
-                            Toast.makeText(Register.this, "Akun gagal dibuat.", Toast.LENGTH_SHORT).show();
-                        });
+                        }).addOnFailureListener(command -> Toast.makeText(Register.this, "Akun gagal dibuat.", Toast.LENGTH_SHORT).show());
                         return;
                     }
                 }
@@ -186,7 +178,10 @@ public class Register  extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(!perms.result(requestCode)) onStart();
+        if(!perms.result(requestCode)){
+            Toast.makeText(this, "Aplikasi ini membutuhkan izin kamera.", Toast.LENGTH_SHORT).show();
+            onStart();
+        }
     }
 
     @Override
