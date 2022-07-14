@@ -61,21 +61,21 @@ public class Register  extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Thread.setDefaultUncaughtExceptionHandler(new ThreadException(this));
         setContentView(R.layout._register_activity);
+        perms = new getPermission(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (!perms.check()) {
-            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
-        }
-
-        perms = new getPermission(this);
         faceContainer = findViewById(R.id.faceContainer);
         tv_face = findViewById(R.id.face_tv_face);
         iv_face = findViewById(R.id.face_iv_face);
         iv_dev = findViewById(R.id.face_iv_dev);
         username = findViewById(R.id.ev_username);
+
+        if (!perms.check()) {
+            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
+        }
 
         setButton();
         tv_face.post(this::initCamera);
@@ -125,9 +125,7 @@ public class Register  extends AppCompatActivity {
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
+                public void onCancelled(@NonNull DatabaseError error) {}
             });
         });
     }

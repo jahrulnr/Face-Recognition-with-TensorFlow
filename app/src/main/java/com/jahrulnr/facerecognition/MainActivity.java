@@ -62,16 +62,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        if (!perms.check()) {
-            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
-        }
-
         System.out.println("onStart");
         faceContainer = findViewById(R.id.faceContainer);
         tv_face = findViewById(R.id.face_tv_face);
         iv_face = findViewById(R.id.face_iv_face);
         iv_dev = findViewById(R.id.face_iv_dev);
         username = findViewById(R.id.ev_username);
+
+        if (!perms.check()) {
+            ActivityCompat.requestPermissions(this, getPermission.REQUIRED_PERMISSIONS, getPermission.REQUEST_CODE_PERMISSION);
+        }
 
         setButton();
         tv_face.post(this::initCamera);
