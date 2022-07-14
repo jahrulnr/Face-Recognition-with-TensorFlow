@@ -1,4 +1,4 @@
-package com.jahrulnr.facerecognition.inc;
+package com.jahrulnr.facerecognition.trash;
 
 import android.app.Activity;
 import android.content.Intent;

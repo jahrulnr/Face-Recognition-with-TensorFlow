@@ -27,7 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.jahrulnr.facerecognition.inc.Firebase;
 import com.jahrulnr.facerecognition.inc.Recognition;
-import com.jahrulnr.facerecognition.inc.ThreadException;
+import com.jahrulnr.facerecognition.trash.ThreadException;
 import com.jahrulnr.facerecognition.inc.getPermission;
 
 import java.util.concurrent.ExecutionException;

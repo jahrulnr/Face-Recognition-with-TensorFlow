@@ -2,7 +2,6 @@ package com.jahrulnr.facerecognition;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Size;
 import android.view.View;
@@ -25,11 +24,10 @@ import androidx.core.content.ContextCompat;
 
 import com.google.common.util.concurrent.ListenableFuture;
 import com.jahrulnr.facerecognition.inc.Recognition;
-import com.jahrulnr.facerecognition.inc.ThreadException;
+import com.jahrulnr.facerecognition.trash.ThreadException;
 import com.jahrulnr.facerecognition.inc.getPermission;
 
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
