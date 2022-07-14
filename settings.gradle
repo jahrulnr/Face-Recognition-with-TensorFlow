@@ -1,0 +1,20 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven {  // Only for snapshot artifacts
+//            url 'https://oss.sonatype.org/content/repositories/snapshots'
+            url 'https://repo1.maven.org/maven2/'
+        }
+    }
+}
+rootProject.name = "FaceRecognition"
+include ':app'

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background"
+    android:gravity="center"
+    android:scrollbars="vertical"
+    tools:context=".Register">
+
+    <ImageView
+        android:id="@+id/face_iv_dev"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="-150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="false"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        app:cardCornerRadius="100dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/faceContainer">
+        <androidx.camera.view.PreviewView
+            android:id="@+id/face_tv_face"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.camera.view.PreviewView>
+        <ImageView
+            android:id="@+id/face_iv_face"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_android_24"/>
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toRightOf="@+id/faceContainer"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="10dp"
+        android:padding="2dp"
+        android:background="@color/alpha"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_baseline_cameraswitch_24"
+        style="@style/button"
+        android:id="@+id/btn_changeCamera"/>
+
+    <EditText
+        android:layout_width="230dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/faceContainer"
+        android:hint="Username"
+        style="@style/edittext"
+        android:id="@+id/ev_username"/>
+
+    <Button
+        android:id="@+id/btn_ulang"
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/faceContainer"
+        android:layout_toRightOf="@+id/ev_username"
+        android:backgroundTint="@color/bootstrap_brand_primary"
+        android:text="Ulang" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ev_username"
+        android:layout_centerHorizontal="true"
+        android:text="Buat Akun"
+        style="@style/button"
+        android:id="@+id/btn_register"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/btn_register"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Sudah memiliki akun?"
+            style="@style/textview"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:backgroundTint="@color/alpha"
+            android:background="@color/alpha"
+            android:text="Login"
+            android:textColor="@color/bootstrap_brand_info"
+            style="@style/button"
+            android:id="@+id/btn_login"/>
+    </LinearLayout>
+
+</RelativeLayout>
